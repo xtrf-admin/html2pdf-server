@@ -15,7 +15,9 @@ import java.util.Collections;
 @Validated
 public class ConvertDocumentRequestDto {
 
+    @NotBlank
     String documentContent;
+    @NotBlank
     String themeContent;
     @NotBlank
     String clientId;

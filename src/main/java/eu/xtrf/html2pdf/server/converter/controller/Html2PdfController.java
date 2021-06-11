@@ -38,6 +38,7 @@ public class Html2PdfController {
         return convertDocument(new ConvertDocumentRequestWithHash(dto));
     }
 
+    // TODO cache wyników w zależności od hasha
     private ResponseEntity convertDocument(ConvertDocumentRequestWithHash dto) {
         try {
             StopWatch stopWatch = new StopWatch();
@@ -50,8 +51,8 @@ public class Html2PdfController {
             stopWatch.stop();
 
             log.info(String.format(
-                    "[%s] Rendered document for request %s in %s",
-                    dto.getConvertDocumentRequestDto().getClientId(), dto.getRequestHash(), Duration.ofNanos(stopWatch.getNanoTime()).toString()));
+                    "[%s] Rendered document for request %s in %s ms",
+                    dto.getConvertDocumentRequestDto().getClientId(), dto.getRequestHash(), Duration.ofNanos(stopWatch.getNanoTime()).toMillis()));
 
             return buildResponse(tempPdfFile);
         } catch (Exception ex) {
